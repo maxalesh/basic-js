@@ -19,14 +19,8 @@ function createDreamTeam(members) {
   }
   let result = [];
   members = members.filter((m) => {
-    if (isNaN(m) && Boolean(m) && Object.prototype.toString.call(m) !== '[object Set]' && Object.prototype.toString.call(m) !== '[object Array]') {
-      if (Object.prototype.toString.call(m) === '[object Object]') {
-        for (let key in m) {
-          if (!isNaN(key)) {
-            return false;
-          }
-        }
-      }
+    if (isNaN(m) && Boolean(m) && Object.prototype.toString.call(m) !== '[object Set]' && Object.prototype.toString.call(m) !== '[object Array]' &&
+      Object.prototype.toString.call(m) !== '[object Object]') {
       return m;
     }
   });
