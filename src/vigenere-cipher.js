@@ -51,28 +51,26 @@ class VigenereCipheringMachine {
     if (ciphertext === undefined || keyword === undefined) {
       throw errorMessage;
     }
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const input = ciphertext.toUpperCase();
-    const key = keyword.toUpperCase();
-
-    let result = "";
+    let result = [];
     let keyIndex = 0;
+    const alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const text = ciphertext.toUpperCase();
+    const key = keyword.toUpperCase();
+    for (let i = 0; i < text.length; i += 1) {
+      const letter = text[i];
+      if (alpha.indexOf(letter) !== -1) {
+        const letterIndex = alpha.indexOf(letter);
+        const keyLetterIndex = alpha.indexOf(key[keyIndex % key.length]);
+        const decryptedCharIndex = (alpha.length + letterIndex - keyLetterIndex) % alpha.length;
 
-    for (let i = 0; i < input.length; i++) {
-      const char = input[i];
-      if (alphabet.includes(char)) {
-        const charIndex = alphabet.indexOf(char);
-        const keyCharIndex = alphabet.indexOf(key[keyIndex % key.length]);
-        const decryptedCharIndex = (charIndex - keyCharIndex + alphabet.length) % alphabet.length;
-
-        result += alphabet[decryptedCharIndex];
-        keyIndex++;
+        result.push(alpha[decryptedCharIndex]);
+        keyIndex += 1;
       } else {
-        result += char;
+        result.push(letter);
       }
     }
 
-    return result;
+    return result.join('');
   }
 }
 
